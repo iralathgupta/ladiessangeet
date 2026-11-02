@@ -285,6 +285,110 @@ body {
   margin-top: 1.5rem;
 }
 
+/* Peek Inside: sample pages in a strip that scrolls one page at a time (swipe, arrows
+   or keyboard; main.js keeps the counter and buttons in step) */
+.peek {
+  padding: var(--section-padding-top) 1rem clamp(3rem, 8vw, 6rem);
+}
+
+.peek h2 {
+  margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--color-teal);
+}
+
+/* As wide as possible while a whole page and the controls fit on one screen */
+.viewer {
+  width: min(100%, 56rem, (var(--photo-max-height) - 3.75rem) * 2000 / 1492);
+  margin: 0 auto;
+}
+
+.viewer-track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.viewer-track::-webkit-scrollbar {
+  display: none;
+}
+
+.viewer-track:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.viewer-page {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.viewer-page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.viewer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.viewer-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 2px solid var(--color-rose);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-rose);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.viewer-btn:hover:not(:disabled) {
+  background: var(--color-rose);
+  color: #fff;
+}
+
+.viewer-btn:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.viewer-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.viewer-count {
+  min-width: 3.5rem;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--color-teal);
+}
+
 /* Buttons */
 .btn {
   display: inline-block;
@@ -343,7 +447,7 @@ body {
 
 /* On phones the buttons would cover the cover title, so the header is always a
    cream bar and the page starts below it */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   :root {
     --header-height: 3.5rem;
   }
@@ -365,10 +469,15 @@ body {
   }
 
   .site-header .btn {
-    padding: 0.4rem 0.75rem;
-    font-size: clamp(0.75rem, 3.6vw, 0.875rem);
+    padding: 0.4rem clamp(0.5rem, 2.5vw, 0.75rem);
+    font-size: clamp(0.6875rem, 3.4vw, 0.875rem);
     letter-spacing: 0;
     white-space: nowrap;
+  }
+
+  /* "About the Authors" becomes "Authors" so all four buttons fit on one row */
+  .nav-long {
+    display: none;
   }
 }
 
