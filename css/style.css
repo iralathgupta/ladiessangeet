@@ -1,11 +1,14 @@
-/* Placeholder colours and fonts — will be replaced with the Canva design values */
+/* Colours sampled from the cover artwork; fonts are placeholders until the design fonts are chosen */
 :root {
-  --color-bg: #fdf6ec;
-  --color-text: #3a2a1f;
-  --color-accent: #b5303a;
-  --color-accent-dark: #8e2129;
+  --color-bg: #fff5e8;
+  --color-text: #4a3a36;
+  --color-rose: #b06a64;
+  --color-rose-dark: #8f504b;
+  --color-teal: #435857;
+  --color-gold: #9a7a3c;
   --font-heading: Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hero-ratio: 2400 / 1791;
 }
 
 *,
@@ -14,69 +17,156 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.5;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Header: sits over the top-right corner of the hero */
+.site-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+/* Hero: the whole cover is always visible (its text is part of the artwork).
+   It fills the screen height on wide screens; the blurred copy behind fills the sides. */
 .hero {
-  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: min(100svh, 100vw / (var(--hero-ratio)));
+  overflow: hidden;
+  background: url("../images/home-1200.jpg") center / cover;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(24px) brightness(1.05);
+  transform: scale(1.1);
+}
+
+.hero-image {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Order section (placeholder) */
+/* At least one screen tall, so "Order Now" brings it to the top of the screen */
+.order {
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 2rem 1rem;
+  padding: clamp(3rem, 8vw, 6rem) 1rem;
   text-align: center;
 }
 
-.hero-title {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  line-height: 1.15;
-}
-
-.hero-subtitle {
-  margin: 0;
-  font-size: 1.125rem;
-}
-
-.hero-tagline {
+.order h2 {
   margin: 0 0 1rem;
-  font-style: italic;
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 400;
+  color: var(--color-teal);
 }
 
+.order p {
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+}
+
+.order-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* Buttons */
 .btn {
-  padding: 0.85rem 2rem;
-  border: 2px solid var(--color-accent);
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border: 2px solid var(--color-rose);
   border-radius: 999px;
-  background: var(--color-accent);
+  background: var(--color-rose);
   color: #fff;
   font: inherit;
   font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 8px rgb(74 58 54 / 0.15);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .btn:hover {
-  background: var(--color-accent-dark);
-  border-color: var(--color-accent-dark);
+  background: var(--color-rose-dark);
+  border-color: var(--color-rose-dark);
 }
 
 .btn:focus-visible {
-  outline: 3px solid var(--color-text);
+  outline: 3px solid var(--color-teal);
   outline-offset: 3px;
 }
 
+.btn-secondary {
+  background: transparent;
+  color: var(--color-rose);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: var(--color-rose);
+  border-color: var(--color-rose);
+  color: #fff;
+}
+
+.site-header .btn {
+  padding: 0.6rem 1.4rem;
+}
+
+@media (max-width: 480px) {
+  .site-header .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
 .site-footer {
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   text-align: center;
   font-size: 0.875rem;
+  color: var(--color-teal);
+}
+
+.site-footer p {
+  margin: 0;
 }

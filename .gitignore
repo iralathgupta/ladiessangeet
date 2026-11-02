@@ -1,3 +1,7 @@
 .DS_Store
 .vscode/
+.claude/
 .netlify/
+
+# Print-ready source files (not needed on the website)
+images/*.pdf

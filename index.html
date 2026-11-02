@@ -11,15 +11,45 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <main id="home" class="hero">
-      <h1 class="hero-title">Sing Along at the Ladies Sangeet</h1>
-      <p class="hero-subtitle">A collection of traditional Punjabi wedding songs</p>
-      <p class="hero-tagline">…so everyone can sing along.</p>
+    <header class="site-header">
+      <a class="btn" href="#order">Order Now</a>
+    </header>
 
-      <!-- TODO: replace data-href with the real Amazon.in link -->
-      <button class="btn" type="button" data-href="https://www.amazon.in/">
-        Buy on Amazon
-      </button>
+    <main>
+      <section id="home" class="hero">
+        <h1 class="visually-hidden">Sing Along at the Ladies Sangeet</h1>
+        <img
+          class="hero-image"
+          src="images/home-1200.jpg"
+          srcset="images/home-1200.jpg 1200w, images/home-2400.jpg 2400w"
+          sizes="(min-aspect-ratio: 4/3) 133svh, 100vw"
+          width="2400"
+          height="1791"
+          alt="Sing Along at the Ladies Sangeet: popular Punjabi wedding songs, by Namita Mehta Sibal and Manisha Lath Gupta. A grandmother, a young girl and four women in pastel outfits sing and clap around a dholak."
+        />
+      </section>
+
+      <!-- Placeholder: ordering details and Amazon links go here -->
+      <section id="order" class="order">
+        <h2>Order your copy</h2>
+        <p>
+          Sing Along at the Ladies Sangeet is available on Amazon worldwide.
+          Choose your country below.
+        </p>
+
+        <!-- TODO: replace each data-href with the book's real Amazon link -->
+        <div class="order-buttons">
+          <button class="btn" type="button" data-href="https://www.amazon.in/">
+            Amazon.in
+          </button>
+          <button class="btn btn-secondary" type="button" data-href="https://www.amazon.com/">
+            Amazon.com
+          </button>
+          <button class="btn btn-secondary" type="button" data-href="https://www.amazon.co.uk/">
+            Amazon.co.uk
+          </button>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
