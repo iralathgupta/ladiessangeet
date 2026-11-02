@@ -50,12 +50,13 @@ body {
   padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
-/* Hero: the cover spans the full width and is cropped from the bottom.
-   It fills the screen height, but never shows the author banner (bottom 13% of the
-   artwork) and never crops into the dholak and singers (keeps at least the top 70%). */
+/* Hero: the cover spans the full width and fills the screen height.
+   The top 4.5% of the artwork (empty space above "Sing Along") is always trimmed,
+   the author banner (from 86% down) is never shown, and at least 70% is kept. */
 .hero {
   --cover-height: calc(100vw / (var(--hero-ratio)));
-  height: clamp(var(--cover-height) * 0.7, 100svh, var(--cover-height) * 0.85);
+  --crop-top: 0.045;
+  height: clamp(var(--cover-height) * 0.7, 100svh, var(--cover-height) * (0.86 - var(--crop-top)));
   overflow: hidden;
 }
 
@@ -64,7 +65,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: center calc(var(--cover-height) * var(--crop-top) * -1);
 }
 
 /* Order section */
