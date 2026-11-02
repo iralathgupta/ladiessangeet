@@ -5,3 +5,5 @@
 
 # Print-ready source files (not needed on the website)
 images/*.pdf
+images/*.HEIC
+images/*.heic

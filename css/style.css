@@ -7,9 +7,15 @@
   --color-rose-dark: #8f504b;
   --color-teal: #435857;
   --color-gold: #9a7a3c;
+  --color-border: #ecd3c9;
   --font-heading: "Gilda Display", Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
   --hero-ratio: 2400 / 1791;
+  --header-height: 4.5rem;
+  /* Sections start just below the fixed header when reached from the nav */
+  --section-padding-top: calc(var(--header-height) + 1.5rem);
+  /* Tallest a section photo can be while the heading and photo fit on one screen */
+  --photo-max-height: calc(100svh - var(--section-padding-top) - 8.5rem);
 }
 
 *,
@@ -40,12 +46,32 @@ body {
 }
 
 /* Header: sits over the top-right corner of the hero */
+/* Header: fixed across the whole page. Transparent over the cover artwork,
+   cream once the page has scrolled past it (main.js adds .is-scrolled to <body>) */
 .site-header {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: 10;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--header-height);
+  padding: 0 clamp(0.75rem, 2vw, 1.5rem);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.is-scrolled .site-header {
+  background: rgb(255 245 232 / 0.95);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 /* Hero: the cover spans the full width and fills the screen height.
@@ -67,17 +93,12 @@ body {
 }
 
 /* Order section: heading on top, book photo on the left, ordering options on the right */
-/* At least one screen tall, so "Order Now" brings it to the top of the screen */
 .order {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(3rem, 8vw, 6rem) 1rem;
+  padding: var(--section-padding-top) 1rem clamp(3rem, 8vw, 6rem);
 }
 
 .order h2 {
-  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+  margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
   font-family: var(--font-heading);
   font-size: clamp(2.25rem, 6vw, 3.75rem);
   font-weight: 400;
@@ -105,7 +126,8 @@ body {
 /* Crops the portrait photo to a near-square frame showing the book and the stack */
 .order-photo {
   display: block;
-  width: 100%;
+  justify-self: center;
+  width: min(100%, var(--photo-max-height) * 603 / 532);
   height: auto;
   aspect-ratio: 603 / 532;
   object-fit: cover;
@@ -143,6 +165,108 @@ body {
 
 .order-option .btn + .btn {
   margin-top: 0.75rem;
+}
+
+/* About the Authors section: heading on top, photo on the left, blurb on the right,
+   dedication centred underneath */
+.authors {
+  padding: var(--section-padding-top) 1rem clamp(3rem, 8vw, 6rem);
+}
+
+.authors h2 {
+  margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--color-teal);
+}
+
+.authors-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3rem);
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.authors-photo-frame {
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.authors-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Side by side: the photo is exactly as tall as the blurb beside it, cropped from the
+   bottom so faces stay in view */
+@media (min-width: 768px) {
+  .authors-layout {
+    grid-template-columns: min(17rem, 42%) 1fr;
+    align-items: stretch;
+  }
+
+  .authors-photo-frame {
+    position: relative;
+  }
+
+  .authors-photo {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  .authors-blurb {
+    align-self: center;
+  }
+}
+
+/* Stacked (phones): keep the photo short enough for the blurb to start on the same screen */
+@media (max-width: 767px) {
+  .authors-photo-frame {
+    width: min(100%, 48svh * 3 / 4);
+    margin: 0 auto;
+  }
+}
+
+.authors-blurb p {
+  margin: 0 0 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.authors-blurb p:last-child {
+  margin-bottom: 0;
+}
+
+.authors-blurb strong {
+  color: var(--color-rose);
+}
+
+.dedication {
+  max-width: 48rem;
+  margin: clamp(1.5rem, 3.5vw, 2.5rem) auto 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  line-height: 1.6;
+  text-align: center;
+  color: var(--color-teal);
+}
+
+.dedication p {
+  margin: 0;
+}
+
+.dedication p + p {
+  margin-top: 1.5rem;
 }
 
 /* Buttons */
@@ -187,15 +311,87 @@ body {
   color: #fff;
 }
 
+/* Light variant for use over the cover artwork */
+.btn-light {
+  background: rgb(255 245 232 / 0.9);
+  color: var(--color-rose);
+}
+
+.btn-light:hover {
+  color: #fff;
+}
+
 .site-header .btn {
   padding: 0.6rem 1.4rem;
 }
 
+/* On phones the buttons would cover the cover title, so the header is always a
+   cream bar and the page starts below it */
 @media (max-width: 480px) {
+  :root {
+    --header-height: 3.5rem;
+  }
+
+  body {
+    padding-top: var(--header-height);
+  }
+
+  .site-header {
+    justify-content: center;
+    background: rgb(255 245 232 / 0.95);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+
+  .site-nav {
+    justify-content: center;
+  }
+
   .site-header .btn {
     padding: 0.4rem 1rem;
     font-size: 0.875rem;
   }
+}
+
+/* Back-to-top arrow: appears once most of the cover has scrolled away (main.js) */
+.to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-rose);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(74 58 54 / 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.2s ease;
+}
+
+.show-to-top .to-top {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover {
+  background: var(--color-rose-dark);
+}
+
+.to-top:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 3px;
 }
 
 .site-footer {
