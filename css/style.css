@@ -1,4 +1,5 @@
-/* Colours sampled from the cover artwork; fonts are placeholders until the design fonts are chosen */
+/* Colours sampled from the cover artwork. Headings use Gilda Display, a free
+   lookalike of Celima (the cover font, which needs a paid web licence) */
 :root {
   --color-bg: #fff5e8;
   --color-text: #4a3a36;
@@ -9,7 +10,7 @@
   --color-card: #fffbf5;
   --color-card-border: #ecd3c9;
   --color-option: #f9e9e2;
-  --font-heading: Georgia, "Times New Roman", serif;
+  --font-heading: "Gilda Display", Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
   --hero-ratio: 2400 / 1791;
 }
