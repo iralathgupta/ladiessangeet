@@ -1,0 +1,82 @@
+/* Placeholder colours and fonts — will be replaced with the Canva design values */
+:root {
+  --color-bg: #fdf6ec;
+  --color-text: #3a2a1f;
+  --color-accent: #b5303a;
+  --color-accent-dark: #8e2129;
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.hero-tagline {
+  margin: 0 0 1rem;
+  font-style: italic;
+}
+
+.btn {
+  padding: 0.85rem 2rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.site-footer {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
