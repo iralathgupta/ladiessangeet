@@ -229,7 +229,7 @@ body {
 .about {
   --layout-width: 60rem;
   --photo-width: 22rem;
-  --photo-ratio: 4 / 5;
+  --photo-ratio: 1204 / 1412;
   --photo-focus: center 60%;
 }
 
