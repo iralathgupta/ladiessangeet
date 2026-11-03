@@ -18,12 +18,18 @@
   </head>
   <body>
     <header class="site-header">
-      <nav class="site-nav">
+      <nav class="site-nav" id="site-nav">
         <a class="btn btn-light" href="#about">About</a>
         <a class="btn btn-light" href="#inside">Peek Inside</a>
-        <a class="btn btn-light" href="#authors"><span class="nav-long">About the </span>Authors</a>
-        <a class="btn" href="#order">Order Now</a>
+        <a class="btn btn-light" href="#authors">About the Authors</a>
+        <a class="btn btn-light" href="#reviews">Reviews</a>
       </nav>
+      <a class="btn" href="#order">Order Now</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
     </header>
 
     <main>
@@ -171,8 +177,8 @@
             <img
               class="feature-photo"
               src="images/authors.jpg"
-              width="900"
-              height="1200"
+              width="1200"
+              height="1644"
               loading="lazy"
               alt="Namita and Manisha, in purple salwar suits, smiling as they read through copies of the book together."
             />
@@ -203,6 +209,51 @@
             This book is a gift to our children, grandchildren, nieces and nephews, who we hope will always remember where they came from.”
           </p>
         </blockquote>
+      </section>
+
+      <section id="reviews" class="reviews">
+        <h2>Reviews</h2>
+
+        <div class="reviews-layout">
+          <div class="testimonials">
+            <blockquote class="testimonial">
+              <p>
+                “Love it!!! It’s going to become a reference book for every sangeet function!
+              </p>
+              <p>
+                I like the fact that you made the effort to write the lyrics in Hindi and English. A
+                good job done, it’s a legacy from you to the kids and grand kids.”
+              </p>
+              <footer>Anshu Sinha, Panjim Goa</footer>
+            </blockquote>
+            <blockquote class="testimonial">
+              <p>“A chance to preserve our past for our future generations.</p>
+              <p>
+                This collection of wedding songs presented in Hindi and English not only take us on a
+                trip down memory lane, they provide a tangible connection to our past.
+              </p>
+              <p>
+                If you have ever been to a Punjabi wedding you will relate to these songs, and if
+                you’ve never been to one but have heard stories about them being a big party these
+                songs will give you some idea of why that is!”
+              </p>
+              <footer>Mattu Barr, Sydney Australia</footer>
+            </blockquote>
+          </div>
+
+          <div class="instagram">
+            <!-- Instagram feed for @ladiessangeet, from Behold (behold.so); its loader script is at
+                 the end of the page -->
+            <behold-widget feed-id="tMwfO0bmAg6NAPZIXDmU"></behold-widget>
+            <a
+              class="instagram-follow"
+              href="https://www.instagram.com/ladiessangeet/"
+              target="_blank"
+              rel="noopener"
+              >Follow @ladiessangeet</a
+            >
+          </div>
+        </div>
       </section>
 
       <section id="order" class="order">
@@ -259,6 +310,20 @@
       <p>&copy; <span id="year">2026</span> Sing Along at the Ladies Sangeet</p>
     </footer>
 
+    <!-- Behold Instagram widget loader (from Behold's embed code) -->
+    <script>
+      (() => {
+        if (window.__bhldScript) return;
+        window.__bhldScript = true;
+        const d = document,
+          s = d.createElement("script");
+        s.type = "module";
+        s.src = "https://w.behold.so/widget.js";
+        setTimeout(() => {
+          d.head.append(s);
+        }, 0);
+      })();
+    </script>
     <script src="js/main.js"></script>
   </body>
 </html>

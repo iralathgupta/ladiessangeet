@@ -7,3 +7,6 @@
 images/*.pdf
 images/*.HEIC
 images/*.heic
+
+# Full-size originals kept locally (web versions are in images/)
+images/originals/

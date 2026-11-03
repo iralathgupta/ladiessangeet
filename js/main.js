@@ -5,6 +5,31 @@ document.querySelectorAll("button[data-href]").forEach((button) => {
   });
 });
 
+// Menu button (phones and tablets): opens the nav links; choosing a link, pressing
+// Escape or tapping elsewhere closes it
+const menuButton = document.querySelector(".nav-toggle");
+
+const setMenuOpen = (open) => {
+  document.querySelector(".site-header").classList.toggle("is-open", open);
+  menuButton.setAttribute("aria-expanded", String(open));
+};
+
+menuButton.addEventListener("click", () => {
+  setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+});
+
+document.querySelectorAll(".site-nav a").forEach((link) => {
+  link.addEventListener("click", () => setMenuOpen(false));
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMenuOpen(false);
+});
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".site-header")) setMenuOpen(false);
+});
+
 // Give the header a background once the cover has scrolled fully behind it,
 // and show the back-to-top arrow once less than half of the cover is in view
 const header = document.querySelector(".site-header");
@@ -56,5 +81,52 @@ track.addEventListener("keydown", (event) => {
 
 track.addEventListener("scroll", updateViewer, { passive: true });
 updateViewer();
+
+// Reviews (side by side only): narrow the testimonials until their text is about as tall
+// as the Instagram feed, so neither column needs empty space to match the other.
+// Narrower text wraps onto more lines, so a binary search on the width finds the match.
+const reviewsLayout = document.querySelector(".reviews-layout");
+const testimonials = document.querySelector(".testimonials");
+const feed = document.querySelector(".instagram");
+const sideBySide = window.matchMedia("(min-width: 768px)");
+
+const balanceReviews = () => {
+  reviewsLayout.style.maxWidth = "";
+  if (!sideBySide.matches) return;
+
+  // Measure both columns at their natural heights, not stretched to match each other
+  reviewsLayout.style.alignItems = "start";
+  const feedHeight = feed.offsetHeight;
+  const feedWidth = feed.offsetWidth;
+  const gap = parseFloat(getComputedStyle(reviewsLayout).columnGap);
+  let narrow = feedWidth + gap + 320; // keep the testimonials at least 320px wide
+  let wide = reviewsLayout.offsetWidth;
+
+  for (let i = 0; i < 12 && wide - narrow > 2; i++) {
+    const width = (narrow + wide) / 2;
+    reviewsLayout.style.maxWidth = `${width}px`;
+    if (testimonials.offsetHeight > feedHeight) narrow = width;
+    else wide = width;
+  }
+
+  reviewsLayout.style.maxWidth = `${Math.ceil(wide)}px`;
+  reviewsLayout.style.alignItems = "";
+};
+
+let balanceQueued = false;
+const queueBalance = () => {
+  if (balanceQueued) return;
+  balanceQueued = true;
+  requestAnimationFrame(() => {
+    balanceQueued = false;
+    balanceReviews();
+  });
+};
+
+// Re-balance when the feed finishes loading or changes size, the fonts arrive, or the
+// window is resized
+new ResizeObserver(queueBalance).observe(document.querySelector("behold-widget"));
+document.fonts.ready.then(queueBalance);
+window.addEventListener("resize", queueBalance);
 
 document.getElementById("year").textContent = new Date().getFullYear();
