@@ -641,7 +641,7 @@ body {
 .to-top {
   position: fixed;
   right: clamp(1rem, 3vw, 2rem);
-  bottom: 5rem;
+  bottom: 4rem;
   z-index: 10;
   display: grid;
   place-items: center;
