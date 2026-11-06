@@ -637,10 +637,11 @@ body {
 }
 
 /* Back-to-top arrow: appears once most of the cover has scrolled away (main.js) */
+/* Sits above the "Powered by Netlify" badge, which Netlify adds along the bottom 64px */
 .to-top {
   position: fixed;
   right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vw, 2rem);
+  bottom: 5rem;
   z-index: 10;
   display: grid;
   place-items: center;
